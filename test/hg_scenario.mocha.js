@@ -13,17 +13,17 @@ if (shell.which('hg') !== null) {
 
     before(function(done) {
       this.timeout(10000);
-      shell.cd('test/fixtures');
+      shell.cd('test/fixtures/test_hg');
 
-      if (shell.ls('libvigraimpex').length == 0)
-        shell.exec('hg clone http://hg.debian.org/hg/collab-maint/libvigraimpex/');
+      if (shell.ls('vizionar_test').length == 0)
+        shell.exec('hg clone https://jshkurti@bitbucket.org/jshkurti/vizionar_test');
 
-      repo_pwd = p.join(shell.pwd(), 'libvigraimpex');
+      repo_pwd = p.join(shell.pwd(), 'vizionar_test');
       done();
     });
 
     after(function(done) {
-      shell.rm('-rf', 'libvigraimpex');
+      shell.rm('-rf', 'vizionar_test');
       done();
     });
 

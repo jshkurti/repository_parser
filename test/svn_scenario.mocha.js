@@ -12,17 +12,17 @@ if (shell.which('hg') !== null) {
 
     before(function(done) {
       this.timeout(10000);
-      shell.cd('test/fixtures/trunk');
+      shell.cd('test/fixtures/test_svn/trunk');
 
-      if (shell.ls('alageospatialportal').length == 0)
-        shell.exec('svn checkout http://alageospatialportal.googlecode.com/svn/trunk/ alageospatialportal-read-only');
+      if (shell.ls('vizionar_test').length == 0)
+        shell.exec('svn https://github.com/jshkurti/vizionar_test');
 
-      repo_pwd = p.join(shell.pwd(), 'alageospatialportal');
+      repo_pwd = p.join(shell.pwd(), 'vizionar_test');
       done();
     });
 
     after(function(done) {
-      shell.rm('-rf', 'alageospatialportal');
+      shell.rm('-rf', 'vizionar_test');
       done();
     });
 

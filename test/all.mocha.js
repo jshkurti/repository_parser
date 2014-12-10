@@ -15,7 +15,7 @@ var vizion = require("..");
 var sample = {
 	svn: {
 		directory: "./test/fixtures/test_svn/",
-		url: "https://github.com/jshkurti/vizionar_test",
+		url: "https://github.com/mul1sh/vizionar_test",
 		revision: "r3",
 		comment: "dat commit though",
 		branch: "vizionar_test",
@@ -24,6 +24,14 @@ var sample = {
 	hg: {
 		directory: "./test/fixtures/test_hg/",
 		url: "https://jshkurti@bitbucket.org/jshkurti/vizionar_test",
+		revision: "0:a070c08854c3",
+		comment: "Initial commit with contributors",
+		branch: "default",
+		update_time: "2014-10-21T12:42:31.017Z"
+	},
+	git: {
+		directory: "./test/fixtures/test_git/",
+		url: "https://github.com/mul1sh/vizionar_test",
 		revision: "0:a070c08854c3",
 		comment: "Initial commit with contributors",
 		branch: "default",
@@ -58,4 +66,18 @@ describe("vizion.analyze()", function() {
 		  });
 	  });
   }
+  if (shell.which('git')) {
+	  it("Pulling from Git", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.git.url);
+			  assert.equal(metadata.revision, sample.git.revision);
+			  assert.equal(metadata.comment, sample.git.comment);
+			  assert.equal(metadata.branch, sample.git.branch);
+			  done();
+		  });
+	  });
+  }
+
 });

@@ -11,7 +11,7 @@ if (shell.which('git') !== null) {
 
     before(function(done) {
       this.timeout(10000);
-      shell.cd('test/fixtures');
+      shell.cd('test/fixtures/test_git');
 
       if (shell.ls('angular-bridge').length == 0)
         shell.exec('git clone https://github.com/Unitech/angular-bridge.git');
