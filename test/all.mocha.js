@@ -24,18 +24,18 @@ var sample = {
 	hg: {
 		directory: "./test/fixtures/test_hg/",
 		url: "https://jshkurti@bitbucket.org/jshkurti/vizionar_test",
-		revision: "0:a070c08854c3",
+		revision: "a13c048",
 		comment: "Initial commit with contributors",
 		branch: "default",
-		update_time: "2014-10-21T12:42:31.017Z"
+		update_time: "2014-12-10T12:42:31.017Z"
 	},
 	git: {
 		directory: "./test/fixtures/test_git/",
 		url: "https://github.com/mul1sh/vizionar_test",
-		revision: "0:a070c08854c3",
+		revision: "bf06816ff30b4140226fe4a129b601439f389e21",
 		comment: "Initial commit with contributors",
-		branch: "default",
-		update_time: "2014-10-21T12:42:31.017Z"
+		branch: "master",
+		update_time: "2014-12-10T12:42:31.017Z"
 	}
 };
 
@@ -81,3 +81,231 @@ describe("vizion.analyze()", function() {
   }
 
 });
+
+//is upto date
+describe("vizion.isUpToDate()", function() {
+  if (shell.which('svn')) {
+	  it.skip("Pulling from Subversion", function(done) {
+      this.timeout(5000);
+		  vizion.isUpToDate({folder: sample.svn.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.is_up_to_date, true);
+			  assert.equal(metadata.new_revision, sample.svn.revision);
+			  assert.equal(metadata.comment, sample.svn.comment);
+			  assert.equal(metadata.branch, sample.svn.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('hg')) {
+	  it("Pulling from Mercurial", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.hg.url);
+			  assert.equal(metadata.revision, sample.hg.revision);
+			  assert.equal(metadata.comment, sample.hg.comment);
+			  assert.equal(metadata.branch, sample.hg.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('git')) {
+	  it("Pulling from Git", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.git.url);
+			  assert.equal(metadata.revision, sample.git.revision);
+			  assert.equal(metadata.comment, sample.git.comment);
+			  assert.equal(metadata.branch, sample.git.branch);
+			  done();
+		  });
+	  });
+  }
+
+});
+
+
+
+//update
+describe("vizion.analyze()", function() {
+  if (shell.which('svn')) {
+	  it.skip("Pulling from Subversion", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.svn.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.svn.url);
+			  assert.equal(metadata.revision, sample.svn.revision);
+			  assert.equal(metadata.comment, sample.svn.comment);
+			  assert.equal(metadata.branch, sample.svn.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('hg')) {
+	  it("Pulling from Mercurial", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.hg.url);
+			  assert.equal(metadata.revision, sample.hg.revision);
+			  assert.equal(metadata.comment, sample.hg.comment);
+			  assert.equal(metadata.branch, sample.hg.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('git')) {
+	  it("Pulling from Git", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.git.url);
+			  assert.equal(metadata.revision, sample.git.revision);
+			  assert.equal(metadata.comment, sample.git.comment);
+			  assert.equal(metadata.branch, sample.git.branch);
+			  done();
+		  });
+	  });
+  }
+
+});
+
+
+//revert
+describe("vizion.analyze()", function() {
+  if (shell.which('svn')) {
+	  it.skip("Pulling from Subversion", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.svn.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.svn.url);
+			  assert.equal(metadata.revision, sample.svn.revision);
+			  assert.equal(metadata.comment, sample.svn.comment);
+			  assert.equal(metadata.branch, sample.svn.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('hg')) {
+	  it("Pulling from Mercurial", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.hg.url);
+			  assert.equal(metadata.revision, sample.hg.revision);
+			  assert.equal(metadata.comment, sample.hg.comment);
+			  assert.equal(metadata.branch, sample.hg.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('git')) {
+	  it("Pulling from Git", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.git.url);
+			  assert.equal(metadata.revision, sample.git.revision);
+			  assert.equal(metadata.comment, sample.git.comment);
+			  assert.equal(metadata.branch, sample.git.branch);
+			  done();
+		  });
+	  });
+  }
+
+});
+
+//previous
+describe("vizion.analyze()", function() {
+  if (shell.which('svn')) {
+	  it.skip("Pulling from Subversion", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.svn.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.svn.url);
+			  assert.equal(metadata.revision, sample.svn.revision);
+			  assert.equal(metadata.comment, sample.svn.comment);
+			  assert.equal(metadata.branch, sample.svn.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('hg')) {
+	  it("Pulling from Mercurial", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.hg.url);
+			  assert.equal(metadata.revision, sample.hg.revision);
+			  assert.equal(metadata.comment, sample.hg.comment);
+			  assert.equal(metadata.branch, sample.hg.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('git')) {
+	  it("Pulling from Git", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.git.url);
+			  assert.equal(metadata.revision, sample.git.revision);
+			  assert.equal(metadata.comment, sample.git.comment);
+			  assert.equal(metadata.branch, sample.git.branch);
+			  done();
+		  });
+	  });
+  }
+
+});
+
+
+//next
+describe("vizion.analyze()", function() {
+  if (shell.which('svn')) {
+	  it.skip("Pulling from Subversion", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.svn.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.svn.url);
+			  assert.equal(metadata.revision, sample.svn.revision);
+			  assert.equal(metadata.comment, sample.svn.comment);
+			  assert.equal(metadata.branch, sample.svn.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('hg')) {
+	  it("Pulling from Mercurial", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.hg.url);
+			  assert.equal(metadata.revision, sample.hg.revision);
+			  assert.equal(metadata.comment, sample.hg.comment);
+			  assert.equal(metadata.branch, sample.hg.branch);
+			  done();
+		  });
+	  });
+  }
+  if (shell.which('git')) {
+	  it("Pulling from Git", function(done) {
+      this.timeout(5000);
+		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+			  assert.equal(err, null);
+			  assert.equal(metadata.url, sample.git.url);
+			  assert.equal(metadata.revision, sample.git.revision);
+			  assert.equal(metadata.comment, sample.git.comment);
+			  assert.equal(metadata.branch, sample.git.branch);
+			  done();
+		  });
+	  });
+  }
+
+});
+
+
+
+
