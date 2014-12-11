@@ -41,7 +41,7 @@ var sample = {
 
 describe("vizion.analyze()", function() {
   if (shell.which('svn')) {
-	  it.skip("Pulling from Subversion", function(done) {
+	  it("Pulling from Subversion", function(done) {
       this.timeout(5000);
 		  vizion.analyze({folder: sample.svn.directory}, function(err, metadata) {
 			  assert.equal(err, null);
@@ -49,6 +49,7 @@ describe("vizion.analyze()", function() {
 			  assert.equal(metadata.revision, sample.svn.revision);
 			  assert.equal(metadata.comment, sample.svn.comment);
 			  assert.equal(metadata.branch, sample.svn.branch);
+			  if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -62,6 +63,7 @@ describe("vizion.analyze()", function() {
 			  assert.equal(metadata.revision, sample.hg.revision);
 			  assert.equal(metadata.comment, sample.hg.comment);
 			  assert.equal(metadata.branch, sample.hg.branch);
+			  if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -75,6 +77,7 @@ describe("vizion.analyze()", function() {
 			  assert.equal(metadata.revision, sample.git.revision);
 			  assert.equal(metadata.comment, sample.git.comment);
 			  assert.equal(metadata.branch, sample.git.branch);
+			  if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -90,9 +93,8 @@ describe("vizion.isUpToDate()", function() {
 		  vizion.isUpToDate({folder: sample.svn.directory}, function(err, metadata) {
 			  assert.equal(err, null);
 			  assert.equal(metadata.is_up_to_date, true);
-			  assert.equal(metadata.new_revision, sample.svn.revision);
-			  assert.equal(metadata.comment, sample.svn.comment);
-			  assert.equal(metadata.branch, sample.svn.branch);
+			  assert.equal(metadata.new_revision, metadata.current_revision);
+			  if (err) return done(err);			 
 			  done();
 		  });
 	  });
@@ -100,12 +102,11 @@ describe("vizion.isUpToDate()", function() {
   if (shell.which('hg')) {
 	  it("Pulling from Mercurial", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+		   vizion.isUpToDate({folder: sample.hg.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.hg.url);
-			  assert.equal(metadata.revision, sample.hg.revision);
-			  assert.equal(metadata.comment, sample.hg.comment);
-			  assert.equal(metadata.branch, sample.hg.branch);
+			  assert.equal(metadata.is_up_to_date, true);
+			  assert.equal(metadata.new_revision, metadata.current_revision);	
+			   if (err) return done(err);		 
 			  done();
 		  });
 	  });
@@ -113,12 +114,11 @@ describe("vizion.isUpToDate()", function() {
   if (shell.which('git')) {
 	  it("Pulling from Git", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+		   vizion.isUpToDate({folder: sample.git.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.git.url);
-			  assert.equal(metadata.revision, sample.git.revision);
-			  assert.equal(metadata.comment, sample.git.comment);
-			  assert.equal(metadata.branch, sample.git.branch);
+			  assert.equal(metadata.is_up_to_date, true);
+			  assert.equal(metadata.new_revision, metadata.current_revision);
+			   if (err) return done(err);			 
 			  done();
 		  });
 	  });
@@ -129,16 +129,15 @@ describe("vizion.isUpToDate()", function() {
 
 
 //update
-describe("vizion.analyze()", function() {
+describe("vizion.update()", function() {
   if (shell.which('svn')) {
 	  it.skip("Pulling from Subversion", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.svn.directory}, function(err, metadata) {
+		  vizion.update({folder: sample.svn.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.svn.url);
-			  assert.equal(metadata.revision, sample.svn.revision);
-			  assert.equal(metadata.comment, sample.svn.comment);
-			  assert.equal(metadata.branch, sample.svn.branch);
+			  assert.equal(metadata.success, true);
+			  assert.equal(metadata.new_revision, metadata.current_revision);	
+			   if (err) return done(err);		 
 			  done();
 		  });
 	  });
@@ -146,12 +145,11 @@ describe("vizion.analyze()", function() {
   if (shell.which('hg')) {
 	  it("Pulling from Mercurial", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+		 vizion.update({folder: sample.svn.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.hg.url);
-			  assert.equal(metadata.revision, sample.hg.revision);
-			  assert.equal(metadata.comment, sample.hg.comment);
-			  assert.equal(metadata.branch, sample.hg.branch);
+			  assert.equal(metadata.success, true);
+			  assert.equal(metadata.new_revision, metadata.current_revision);
+			   if (err) return done(err);			 
 			  done();
 		  });
 	  });
@@ -159,12 +157,11 @@ describe("vizion.analyze()", function() {
   if (shell.which('git')) {
 	  it("Pulling from Git", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+		  vizion.update({folder: sample.svn.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.git.url);
-			  assert.equal(metadata.revision, sample.git.revision);
-			  assert.equal(metadata.comment, sample.git.comment);
-			  assert.equal(metadata.branch, sample.git.branch);
+			  assert.equal(metadata.success, true);
+			  assert.equal(metadata.new_revision, metadata.current_revision);
+			   if (err) return done(err);			 
 			  done();
 		  });
 	  });
@@ -174,16 +171,15 @@ describe("vizion.analyze()", function() {
 
 
 //revert
-describe("vizion.analyze()", function() {
+describe("vizion.revertTo()", function() {
   if (shell.which('svn')) {
-	  it.skip("Pulling from Subversion", function(done) {
+	  it.("Pulling from Subversion", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.svn.directory}, function(err, metadata) {
+		  vizion.revertTo({folder: sample.svn.directory, revision : "r2"}, 
+		  	function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.svn.url);
-			  assert.equal(metadata.revision, sample.svn.revision);
-			  assert.equal(metadata.comment, sample.svn.comment);
-			  assert.equal(metadata.branch, sample.svn.branch);
+			  assert.equal(metadata.success , true);
+			   if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -191,12 +187,11 @@ describe("vizion.analyze()", function() {
   if (shell.which('hg')) {
 	  it("Pulling from Mercurial", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+		  vizion.revertTo({folder: sample.hg.directory, revision : "a13c9ywe2"}, 
+		  	function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.hg.url);
-			  assert.equal(metadata.revision, sample.hg.revision);
-			  assert.equal(metadata.comment, sample.hg.comment);
-			  assert.equal(metadata.branch, sample.hg.branch);
+			  assert.equal(metadata.success , true);
+			   if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -204,12 +199,11 @@ describe("vizion.analyze()", function() {
   if (shell.which('git')) {
 	  it("Pulling from Git", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+		 vizion.revertTo({folder: sample.git.directory, revision : "bf06816ff30b4140226fe4a129b6"}, 
+		  	function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.git.url);
-			  assert.equal(metadata.revision, sample.git.revision);
-			  assert.equal(metadata.comment, sample.git.comment);
-			  assert.equal(metadata.branch, sample.git.branch);
+			  assert.equal(metadata.success , true);
+			   if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -218,16 +212,14 @@ describe("vizion.analyze()", function() {
 });
 
 //previous
-describe("vizion.analyze()", function() {
+describe("vizion.prev()", function() {
   if (shell.which('svn')) {
-	  it.skip("Pulling from Subversion", function(done) {
+	  it("Pulling from Subversion", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.svn.directory}, function(err, metadata) {
+		  vizion.prev({folder: sample.svn.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.svn.url);
-			  assert.equal(metadata.revision, sample.svn.revision);
-			  assert.equal(metadata.comment, sample.svn.comment);
-			  assert.equal(metadata.branch, sample.svn.branch);
+			  assert.equal(metadata.success, true);
+			  if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -235,12 +227,10 @@ describe("vizion.analyze()", function() {
   if (shell.which('hg')) {
 	  it("Pulling from Mercurial", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+		   vizion.prev({folder: sample.hg.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.hg.url);
-			  assert.equal(metadata.revision, sample.hg.revision);
-			  assert.equal(metadata.comment, sample.hg.comment);
-			  assert.equal(metadata.branch, sample.hg.branch);
+			  assert.equal(metadata.success, true);
+			  if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -248,12 +238,10 @@ describe("vizion.analyze()", function() {
   if (shell.which('git')) {
 	  it("Pulling from Git", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+		  vizion.prev({folder: sample.git.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.git.url);
-			  assert.equal(metadata.revision, sample.git.revision);
-			  assert.equal(metadata.comment, sample.git.comment);
-			  assert.equal(metadata.branch, sample.git.branch);
+			  assert.equal(metadata.success, true);
+			  if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -263,16 +251,14 @@ describe("vizion.analyze()", function() {
 
 
 //next
-describe("vizion.analyze()", function() {
+describe("vizion.next()", function() {
   if (shell.which('svn')) {
-	  it.skip("Pulling from Subversion", function(done) {
+	  it("Pulling from Subversion", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.svn.directory}, function(err, metadata) {
+		  vizion.next({folder: sample.svn.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.svn.url);
-			  assert.equal(metadata.revision, sample.svn.revision);
-			  assert.equal(metadata.comment, sample.svn.comment);
-			  assert.equal(metadata.branch, sample.svn.branch);
+			  assert.equal(metadata.success, true);
+			  if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -280,12 +266,10 @@ describe("vizion.analyze()", function() {
   if (shell.which('hg')) {
 	  it("Pulling from Mercurial", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.hg.directory}, function(err, metadata) {
+		 vizion.next({folder: sample.hg.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.hg.url);
-			  assert.equal(metadata.revision, sample.hg.revision);
-			  assert.equal(metadata.comment, sample.hg.comment);
-			  assert.equal(metadata.branch, sample.hg.branch);
+			  assert.equal(metadata.success, true);
+			  if (err) return done(err);
 			  done();
 		  });
 	  });
@@ -293,12 +277,10 @@ describe("vizion.analyze()", function() {
   if (shell.which('git')) {
 	  it("Pulling from Git", function(done) {
       this.timeout(5000);
-		  vizion.analyze({folder: sample.git.directory}, function(err, metadata) {
+		 vizion.next({folder: sample.git.directory}, function(err, metadata) {
 			  assert.equal(err, null);
-			  assert.equal(metadata.url, sample.git.url);
-			  assert.equal(metadata.revision, sample.git.revision);
-			  assert.equal(metadata.comment, sample.git.comment);
-			  assert.equal(metadata.branch, sample.git.branch);
+			  assert.equal(metadata.success, true);
+			  if (err) return done(err);
 			  done();
 		  });
 	  });
