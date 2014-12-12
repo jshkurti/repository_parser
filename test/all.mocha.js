@@ -88,7 +88,7 @@ describe("vizion.analyze()", function() {
 //is upto date
 describe("vizion.isUpToDate()", function() {
   if (shell.which('svn')) {
-	  it.skip("Pulling from Subversion", function(done) {
+	  it("Pulling from Subversion", function(done) {
       this.timeout(5000);
 		  vizion.isUpToDate({folder: sample.svn.directory}, function(err, metadata) {
 			  assert.equal(err, null);
@@ -131,7 +131,7 @@ describe("vizion.isUpToDate()", function() {
 //update
 describe("vizion.update()", function() {
   if (shell.which('svn')) {
-	  it.skip("Pulling from Subversion", function(done) {
+	  it("Pulling from Subversion", function(done) {
       this.timeout(5000);
 		  vizion.update({folder: sample.svn.directory}, function(err, metadata) {
 			  assert.equal(err, null);
@@ -173,7 +173,7 @@ describe("vizion.update()", function() {
 //revert
 describe("vizion.revertTo()", function() {
   if (shell.which('svn')) {
-	  it.("Pulling from Subversion", function(done) {
+	  it("Pulling from Subversion", function(done) {
       this.timeout(5000);
 		  vizion.revertTo({folder: sample.svn.directory, revision : "r2"}, 
 		  	function(err, metadata) {

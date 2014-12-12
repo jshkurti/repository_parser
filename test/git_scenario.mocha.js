@@ -13,7 +13,7 @@ if (shell.which('git') !== null) {
       this.timeout(10000);
       shell.cd('test/fixtures/test_git');
 
-      if (shell.ls('angular-bridge').length == 0)
+      if (shell.ls('vizionar_test').length == 0)
         shell.exec('git clone https://github.com/mul1sh/vizionar_test.git');
 
       repo_pwd = p.join(shell.pwd(), 'vizionar_test');
