@@ -23,7 +23,7 @@ var sample = {
 	},
 	hg: {
 		directory: "./test/fixtures/test_hg/",
-		url: "https://jshkurti@bitbucket.org/jshkurti/vizionar_test",
+		url: "https://mulish@bitbucket.org/mulish/vizionar_test",
 		revision: "a13c048",
 		comment: "Initial commit with contributors",
 		branch: "default",

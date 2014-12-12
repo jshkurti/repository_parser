@@ -16,7 +16,7 @@ if (shell.which('hg') !== null) {
       shell.cd('test/fixtures/test_hg');
 
       if (shell.ls('vizionar_test').length == 0)
-        shell.exec('hg clone https://jshkurti@bitbucket.org/jshkurti/vizionar_test');
+        shell.exec('hg clone https://mulish@bitbucket.org/mulish/vizionar_test');
 
       repo_pwd = p.join(shell.pwd(), 'vizionar_test');
       done();

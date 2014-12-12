@@ -14,14 +14,14 @@ if (shell.which('git') !== null) {
       shell.cd('test/fixtures/test_git');
 
       if (shell.ls('angular-bridge').length == 0)
-        shell.exec('git clone https://github.com/Unitech/angular-bridge.git');
+        shell.exec('git clone https://github.com/mul1sh/vizionar_test.git');
 
-      repo_pwd = p.join(shell.pwd(), 'angular-bridge');
+      repo_pwd = p.join(shell.pwd(), 'vizionar_test');
       done();
     });
 
     after(function(done) {
-      shell.rm('-rf', 'angular-bridge');
+      shell.rm('-rf', 'vizionar_test');
       done();
     });
 
